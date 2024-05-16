@@ -114,9 +114,40 @@ int is_final(Node* n){
    return is_valid(n);
 }
 
-Node* DFS(Node* initial, int* cont){
-  return NULL;
+Node* DFS(Node* initial, int* cont) {
+    (*cont)++;
+
+    if (is_final(initial)) {
+        return copy(initial);  
+    }
+
+    List* adj_nodes = get_adj_nodes(initial);
+    Node* result = NULL;
+
+    if (is_empty(adj_nodes)) {
+        clean(adj_nodes);  
+        return NULL;
+    }
+
+    for (void* node = first(adj_nodes); node != NULL; node = next(adj_nodes)) {
+        result = DFS((Node*)node, cont);
+
+        if (result != NULL) {
+            break;
+        }
+    }
+
+  
+    while (!is_empty(adj_nodes)) {
+        Node* to_free = (Node*)front(adj_nodes);
+        free(to_free);  
+        popFront(adj_nodes);  
+    }
+    clean(adj_nodes);  
+
+    return result;  
 }
+
 
 
 
