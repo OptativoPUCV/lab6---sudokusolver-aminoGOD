@@ -45,47 +45,43 @@ void print_node(Node* n){
 }
 
 int is_valid(Node* n){
-   int used[10];
-   
+   int row[10], col[10], box[10];
+
    for(int i = 0; i < 9; i++){
-      
-      memset(used, 0, sizeof(used));
-      memset(used + 1 , 0 , 9 * sizeof(int));
-      
+      memset(row, 0, sizeof(row));
+      memset(col, 0, sizeof(col));
       for(int j = 0; j < 9; j++){
-         
-         int numFila = n->sudo[i][j];
+         int numRow = n->sudo[i][j];
          int numCol = n->sudo[j][i];
-         
-         if(numFila != 0){
-            
-            if(used[numFila] == 0) return 0;
-            used[numFila] = 1;
+
+         if(numRow != 0){
+            if(row[numRow]) return 0;
+            row[numRow] = 1;
          }
          if(numCol != 0){
-            if(used[numCol + 1]) return 0;
-            used[numCol + 1] = 1;
-            
+            if(col[numCol]) return 0;
+            col[numCol] = 1;
          }
       }
    }
 
-   for(int bloque = 0; bloque < 9; bloque++){
-      int startFila = 3 * (bloque / 3);
-      int startCol = 3 * (bloque % 3);
-      memset(used, 0, sizeof(used));
+   for(int block = 0; block < 9; block++){
+      int startRow = 3 * (block / 3);
+      int startCol = 3 * (block % 3);
+      memset(box, 0, sizeof(box));
       for(int i = 0; i < 3; i++){
          for(int j = 0; j < 3; j++){
-            int num = n->sudo[i + startFila][j + startCol];
+            int num = n->sudo[startRow + i][startCol + j];
             if(num != 0){
-               if(used[num] == 0) return 0;
-               used[num] = 1;
+               if(box[num]) return 0;
+               box[num] = 1;
             }
          }
       }
    }
    return 1;
 }
+
 
 
 List* get_adj_nodes(Node* n){
