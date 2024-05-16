@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 #include "list.h"
 
 
@@ -44,14 +45,60 @@ void print_node(Node* n){
 }
 
 int is_valid(Node* n){
+   int used[10];
+   
+   for(int i = 0; i < 9; i++){
+      
+      memset(used, 0, sizeof(used));
+      memset(used + 1 , 0 , 9 * sizeof(int));
+      
+      for(int j = 0; j < 9; j++){
+         
+         int numFila = n->sudo[i][j];
+         int numCol = n->sudo[j][i];
+         
+         if(numFila != 0){
+            
+            if(used[numFila] == 0) return 0;
+            used[numFila] = 1;
+         }
+         if(numCol != 0){
+            if(used[numCol + 1]) return 0;
+            used[numCol + 1] = 1;
+            
+         }
+      }
+   }
 
-    return 1;
+   for(int bloque = 0; bloque < 9; bloque++){
+      int startFila = 3 * (bloque / 3);
+      int startCol = 3 * (bloque % 3);
+      memset(used, 0, sizeof(used));
+      for(int i = 0; i < 3; i++){
+         for(int j = 0; j < 3; j++){
+            int num = n->sudo[i + startFila][j + startCol];
+            if(num != 0){
+               if(used[num] == 0) return 0;
+               used[num] = 1;
+            }
+         }
+      }
+   }
+   return 1;
 }
 
 
 List* get_adj_nodes(Node* n){
-    List* list=createList();
-    return list;
+   List* list = createList();
+   /*for(int i = 0; i < 9; i++){
+      for(int j = 0; j < 9; j++){
+         if(n->sudo[i][j] )
+         
+         
+         
+      }
+   }*/
+   return list;
 }
 
 
