@@ -34,16 +34,6 @@ Node* read_file (char* file_name){
   return n;
 }
 
-void print_node(Node* n){
-    int i,j;
-    for(i=0;i<9;i++){
-       for(j=0;j<9;j++)
-          printf("%d ", n->sudo[i][j]);
-       printf("\n");
-    }
-    printf("\n");
-}
-
 int is_valid(Node* n) {
     int seen[10]; 
 
@@ -82,7 +72,9 @@ int is_valid(Node* n) {
         }
    }
 
-    retur
+    return 1;
+}
+
 
 
 List* get_adj_nodes(Node* n){
