@@ -44,44 +44,45 @@ void print_node(Node* n){
     printf("\n");
 }
 
-int is_valid(Node* n){
-   int row[10], col[10], box[10];
+int is_valid(Node* n) {
+    int seen[10]; 
 
-   for(int i = 0; i < 9; i++){
-      memset(row, 0, sizeof(row));
-      memset(col, 0, sizeof(col));
-      for(int j = 0; j < 9; j++){
-         int numRow = n->sudo[i][j];
-         int numCol = n->sudo[j][i];
-
-         if(numRow != 0){
-            if(row[numRow]) return 0;
-            row[numRow] = 1;
-         }
-         if(numCol != 0){
-            if(col[numCol]) return 0;
-            col[numCol] = 1;
-         }
-      }
-   }
-
-   for(int block = 0; block < 9; block++){
-      int startRow = 3 * (block / 3);
-      int startCol = 3 * (block % 3);
-      memset(box, 0, sizeof(box));
-      for(int i = 0; i < 3; i++){
-         for(int j = 0; j < 3; j++){
-            int num = n->sudo[startRow + i][startCol + j];
-            if(num != 0){
-               if(box[num]) return 0;
-               box[num] = 1;
+   for (int i = 0; i < 9; i++) {
+        for (int k = 0; k < 10; k++) seen[k] = 0; 
+        for (int j = 0; j < 9; j++) {
+            int num = n->sudo[i][j];
+            if (num != 0) {
+                if (seen[num]) return 0; 
+                seen[num] = 1; 
             }
-         }
-      }
+        }
    }
-   return 1;
-}
 
+   for (int j = 0; j < 9; j++) {
+        for (int k = 0; k < 10; k++) seen[k] = 0;
+        for (int i = 0; i < 9; i++) {
+            int num = n->sudo[i][j];
+            if (num != 0) {
+                if (seen[num]) return 0; 
+                seen[num] = 1; 
+            }
+        }
+   }
+
+   for (int k = 0; k < 9; k++) {
+        for (int p = 0; p < 10; p++) seen[p] = 0;
+        for (int p = 0; p < 9; p++) {
+            int i = 3 * (k / 3) + (p / 3);
+            int j = 3 * (k % 3) + (p % 3);
+            int num = n->sudo[i][j];
+            if (num != 0) {
+                if (seen[num]) return 0;
+                seen[num] = 1; 
+            }
+        }
+   }
+
+    retur
 
 
 List* get_adj_nodes(Node* n){

@@ -44,3 +44,48 @@ Sun 19 May 2024 12:36:59 AM UTC:
  tests:  9|1
 total_score: 60/70
 a1a9746
+Sun 19 May 2024 12:53:47 AM UTC: 
+ sudoku.c | 47 ++++++++++++++++++++++++-----------------------
+ 1 file changed, 24 insertions(+), 23 deletions(-)
+In file included from test.c:5:
+sudoku.c: In function ‘is_valid’:
+sudoku.c:85:5: error: unknown type name ‘retur’
+   85 |     retur
+      |     ^~~~~
+sudoku.c:88:5: error: expected ‘=’, ‘,’, ‘;’, ‘asm’ or ‘__attribute__’ before ‘*’ token
+   88 | List* get_adj_nodes(Node* n){
+      |     ^
+sudoku.c: In function ‘DFS’:
+sudoku.c:125:23: error: implicit declaration of function ‘get_adj_nodes’ [-Werror=implicit-function-declaration]
+  125 |     List* adj_nodes = get_adj_nodes(initial);
+      |                       ^~~~~~~~~~~~~
+sudoku.c:125:23: error: initialization of ‘List *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+test.c: In function ‘adj_test1’:
+test.c:62:17: error: initialization of ‘List *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+   62 |     List* adj = get_adj_nodes(initial);
+      |                 ^~~~~~~~~~~~~
+test.c:95:9: error: assignment to ‘List *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+   95 |     adj = get_adj_nodes(initial);
+      |         ^
+test.c: In function ‘test_mod_adj’:
+test.c:155:17: error: initialization of ‘List *’ from ‘int’ makes pointer from integer without a cast [-Werror=int-conversion]
+  155 |     List* adj = get_adj_nodes(initial);
+      |                 ^~~~~~~~~~~~~
+test.c: In function ‘is_valid’:
+test.c:245:5: error: ‘main’ is normally a non-static function [-Werror=main]
+  245 | int main( int argc, char *argv[] ) {
+      |     ^~~~
+test.c:262:1: error: expected declaration or statement at end of input
+  262 | }
+      | ^
+test.c:263: error: control reaches end of non-void function [-Werror=return-type]
+At top level:
+test.c:245:5: error: ‘main’ defined but not used [-Werror=unused-function]
+  245 | int main( int argc, char *argv[] ) {
+      |     ^~~~
+test.c:7:8: error: ‘_strdup’ defined but not used [-Werror=unused-function]
+    7 | char * _strdup(const char * str) {
+      |        ^~~~~~~
+cc1: all warnings being treated as errors
+Compilation failed
+1de31dc
